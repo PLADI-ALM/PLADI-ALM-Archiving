@@ -30,6 +30,9 @@ public enum BaseResponseCode {
 
     // Office
     OFFICE_NOT_FOUND("O0001", HttpStatus.NOT_FOUND, "존재하지 않는 회의실입니다."),
+
+    // Archiving
+    ALREADY_REGISTERED_PROJECT("P0001", HttpStatus.BAD_REQUEST, "이미 등록된 프로젝트입니다."),
     ;
 
     public final String code;
