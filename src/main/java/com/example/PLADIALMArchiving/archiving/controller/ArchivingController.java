@@ -3,6 +3,7 @@ package com.example.PLADIALMArchiving.archiving.controller;
 import com.example.PLADIALMArchiving.archiving.dto.request.RegisterProjectReq;
 import com.example.PLADIALMArchiving.archiving.dto.request.UploadMaterialReq;
 import com.example.PLADIALMArchiving.archiving.service.ArchivingService;
+import com.example.PLADIALMArchiving.global.resolver.Account;
 import com.example.PLADIALMArchiving.global.response.ResponseCustom;
 import com.example.PLADIALMArchiving.user.entity.User;
 import io.swagger.annotations.Api;
@@ -35,8 +36,7 @@ public class ArchivingController {
   public ResponseCustom<?> uploadMaterial(
           @RequestBody UploadMaterialReq uploadMaterialReq,
           @PathVariable Long projectId,
-          User user
-
+          @Account User user
   )
   {
     archivingService.uploadMaterial(uploadMaterialReq, projectId, user);
