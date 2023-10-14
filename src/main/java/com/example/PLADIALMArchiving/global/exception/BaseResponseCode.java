@@ -18,6 +18,15 @@ public enum BaseResponseCode {
     // User
     USER_NOT_FOUND("U0001", HttpStatus.NOT_FOUND, "사용자를 찾을 수 없습니다."),
 
+    // Token
+    NULL_TOKEN("T0001", HttpStatus.UNAUTHORIZED, "토큰 값을 입력해주세요."),
+    INVALID_TOKEN("T0002", HttpStatus.UNAUTHORIZED, "유효하지 않은 토큰 값입니다."),
+    UNSUPPORTED_TOKEN("T0003", HttpStatus.UNAUTHORIZED, "잘못된 형식의 토큰 값입니다."),
+    MALFORMED_TOKEN("T0004", HttpStatus.UNAUTHORIZED, "잘못된 구조의 토큰 값입니다."),
+    EXPIRED_TOKEN("T0005", HttpStatus.FORBIDDEN, "만료된 토큰 값입니다."),
+    NOT_ACCESS_HEADER("T0006", HttpStatus.INTERNAL_SERVER_ERROR, "헤더에 접근할 수 없습니다."),
+    BLACKLIST_TOKEN("T0007", HttpStatus.FORBIDDEN, "로그아웃 혹은 회원 탈퇴된 토큰입니다."),
+
     // Booking
     DATE_OR_TIME_IS_NULL("B0001", HttpStatus.BAD_REQUEST, "날짜와 시간을 모두 입력해주세요."),
     MEMO_SIZE_OVER("B0002", HttpStatus.BAD_REQUEST, "요청사항은 30자 이하로 작성해주세요."),
@@ -30,6 +39,10 @@ public enum BaseResponseCode {
 
     // Office
     OFFICE_NOT_FOUND("O0001", HttpStatus.NOT_FOUND, "존재하지 않는 회의실입니다."),
+
+    // Archiving
+    ALREADY_REGISTERED_PROJECT("P0001", HttpStatus.BAD_REQUEST, "이미 등록된 프로젝트입니다."),
+    PROJECT_NOT_FOUND("P0002", HttpStatus.NOT_FOUND, "존재하지 않는 프로젝트입니다."),
     ;
 
     public final String code;
