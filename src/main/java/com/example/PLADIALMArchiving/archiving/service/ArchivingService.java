@@ -60,7 +60,7 @@ public class ArchivingService {
       } else if (category == Category.DOCS) {
         extension = List.of(Constants.EXTENSION.DOCS.split(" "));
       }
-      filteredMaterials = materialRepository.findByProjectAndExtensionIn(project, extension, pageable);
+      filteredMaterials = materialRepository.findByProjectAndExtensionInAndNameContaining(project, extension, searchMaterialReq.getCond(), pageable);
     } else {
       filteredMaterials = materialRepository.findAll(pageable);
     }

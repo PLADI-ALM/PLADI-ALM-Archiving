@@ -11,9 +11,5 @@ import java.util.List;
 
 @Repository
 public interface MaterialRepository extends JpaRepository<Material, Long> {
-
-//  @Query("SELECT mt FROM Material mt WHERE :extension LIKE CONCAT('%', mt.extension, '%') ")
-//  List<Material> findByProject(Project project, @Param("extension") String extension);
-
-  Page<Material> findByProjectAndExtensionIn(Project project, List<String> extensions, Pageable pageable);
+  Page<Material> findByProjectAndExtensionInAndNameContaining(Project project, List<String> extensions, String cond, Pageable pageable);
 }
