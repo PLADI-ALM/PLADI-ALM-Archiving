@@ -16,4 +16,10 @@ public class Constants {
         public static final String LOGOUT = "logout";
         public static final String SIGNOUT = "signout";
     }
+
+    public static class EXTENSION{
+        public static final String IMAGE = "jpeg jpg png gif";
+        public static final String VIDEO = "mp4 mov avi webm html5";
+        public static final String DOCS = "doc docx txt ppt pptx xls pdf ai psd hwp";
+    }
 }
