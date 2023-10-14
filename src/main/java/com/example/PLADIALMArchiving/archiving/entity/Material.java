@@ -49,14 +49,12 @@ public class Material extends BaseEntity {
   }
 
   public static Material toEntity(UploadMaterialReq uploadMaterialReq, Project project, User user) {
-    Material material = Material.builder()
+    return Material.builder()
             .name(uploadMaterialReq.getName())
             .extension(uploadMaterialReq.getExtension())
             .fileKey(uploadMaterialReq.getFileKey())
             .project(project)
             .user(user)
             .build();
-    project.addMaterial(material);
-    return material;
   }
 }

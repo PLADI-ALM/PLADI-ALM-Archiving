@@ -41,8 +41,4 @@ public class Project extends BaseEntity {
   public Project(String name) {
     this.name = name;
   }
-
-  public void addMaterial(Material material) {
-    this.materialList.add(material);
-  }
 }
