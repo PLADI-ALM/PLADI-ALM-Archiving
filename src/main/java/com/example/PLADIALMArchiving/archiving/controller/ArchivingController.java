@@ -10,8 +10,6 @@ import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.InputStream;
-
 @Api(tags = "아카이빙 API")
 @RestController
 @RequiredArgsConstructor
