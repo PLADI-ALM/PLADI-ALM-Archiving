@@ -3,12 +3,14 @@ package com.example.PLADIALMArchiving.archiving.controller;
 import com.example.PLADIALMArchiving.archiving.dto.request.RegisterProjectReq;
 import com.example.PLADIALMArchiving.archiving.dto.request.SearchMaterialReq;
 import com.example.PLADIALMArchiving.archiving.dto.request.UploadMaterialReq;
+import com.example.PLADIALMArchiving.archiving.dto.response.SearchMaterialRes;
 import com.example.PLADIALMArchiving.archiving.service.ArchivingService;
 import com.example.PLADIALMArchiving.global.resolver.Account;
 import com.example.PLADIALMArchiving.global.response.ResponseCustom;
 import com.example.PLADIALMArchiving.user.entity.User;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,8 +48,8 @@ public class ArchivingController {
   /**
    * 자료목록을 조회 및 검색한다.
    */
-  @GetMapping("/projects/{projectId}")
-  public ResponseCustom<?> searchMaterial(
+  @PostMapping("/projects/{projectId}")
+  public ResponseCustom<Page<SearchMaterialRes>> searchMaterial(
           @PathVariable Long projectId,
           @RequestBody SearchMaterialReq searchMaterialReq,
           Pageable pageable
