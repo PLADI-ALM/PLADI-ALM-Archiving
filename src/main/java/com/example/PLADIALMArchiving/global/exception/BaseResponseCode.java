@@ -33,6 +33,7 @@ public enum BaseResponseCode {
 
     // Archiving
     ALREADY_REGISTERED_PROJECT("P0001", HttpStatus.BAD_REQUEST, "이미 등록된 프로젝트입니다."),
+    PROJECT_NOT_FOUND("P0002", HttpStatus.NOT_FOUND, "존재하지 않는 프로젝트입니다."),
     ;
 
     public final String code;

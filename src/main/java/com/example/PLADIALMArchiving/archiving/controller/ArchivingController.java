@@ -1,14 +1,15 @@
 package com.example.PLADIALMArchiving.archiving.controller;
 
 import com.example.PLADIALMArchiving.archiving.dto.request.RegisterProjectReq;
+import com.example.PLADIALMArchiving.archiving.dto.request.UploadMaterialReq;
 import com.example.PLADIALMArchiving.archiving.service.ArchivingService;
 import com.example.PLADIALMArchiving.global.response.ResponseCustom;
+import com.example.PLADIALMArchiving.user.entity.User;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.InputStream;
 
 @Api(tags = "아카이빙 API")
 @RestController
@@ -26,10 +27,21 @@ public class ArchivingController {
     archivingService.registerProject(registerProjectReq);
     return ResponseCustom.OK();
   }
+
   /**
    * 자료를 업로드한다.
    */
+  @PostMapping("/projects/{projectId}/upload")
+  public ResponseCustom<?> uploadMaterial(
+          @RequestBody UploadMaterialReq uploadMaterialReq,
+          @PathVariable Long projectId,
+          User user
 
+  )
+  {
+    archivingService.uploadMaterial(uploadMaterialReq, projectId, user);
+    return ResponseCustom.OK();
+  }
   /**
    * 자료목록을 조회 및 검색한다.
    */
