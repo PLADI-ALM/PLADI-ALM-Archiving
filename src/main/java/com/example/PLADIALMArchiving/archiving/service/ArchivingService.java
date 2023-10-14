@@ -36,8 +36,6 @@ public class ArchivingService {
   @Transactional
   public void uploadMaterial(UploadMaterialReq uploadMaterialReq, Long projectId, User user) {
     Project project = projectRepository.findById(projectId).orElseThrow(() -> new BaseException(BaseResponseCode.PROJECT_NOT_FOUND));
-    User publisher = userRepository.findById(user.getUserId()).orElseThrow(() -> new BaseException(BaseResponseCode.USER_NOT_FOUND));
-    Long id = publisher.getUserId();
     materialRepository.save(Material.toEntity(uploadMaterialReq, project, user));
   }
 }
