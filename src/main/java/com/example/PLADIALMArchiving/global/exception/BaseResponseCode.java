@@ -43,6 +43,10 @@ public enum BaseResponseCode {
     // Archiving
     ALREADY_REGISTERED_PROJECT("P0001", HttpStatus.BAD_REQUEST, "이미 등록된 프로젝트입니다."),
     PROJECT_NOT_FOUND("P0002", HttpStatus.NOT_FOUND, "존재하지 않는 프로젝트입니다."),
+
+
+    MATERIAL_NOT_FOUND("P0004", HttpStatus.NOT_FOUND, "존재하지 않는 자료입니다."),
+    UNAUTHORIZED_USER("P0005", HttpStatus.UNAUTHORIZED, "자료를 업로드한 유저가 아니므로 해당 자료를 삭제할 수 없습니다."),
     ;
 
     public final String code;

@@ -38,4 +38,15 @@ public class ArchivingService {
     Project project = projectRepository.findById(projectId).orElseThrow(() -> new BaseException(BaseResponseCode.PROJECT_NOT_FOUND));
     materialRepository.save(Material.toEntity(uploadMaterialReq, project, user));
   }
+
+  @Transactional
+  public void deleteMaterial(Long projectId, Long materialId, User user) {
+    projectRepository.findById(projectId).orElseThrow(() -> new BaseException(BaseResponseCode.PROJECT_NOT_FOUND));
+    Material material = materialRepository.findById(materialId).orElseThrow(() -> new BaseException(BaseResponseCode.MATERIAL_NOT_FOUND));
+
+    if(!user.getUserId().equals(material.getUser().getUserId()))
+      throw new BaseException(BaseResponseCode.UNAUTHORIZED_USER);
+
+    material.delete();
+  }
 }
