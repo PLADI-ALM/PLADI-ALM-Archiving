@@ -6,5 +6,6 @@ import lombok.Getter;
 public class UploadMaterialReq {
   private String fileKey;
   private String name;
+  private Long size;
   private String extension;
 }
