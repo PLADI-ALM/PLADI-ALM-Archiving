@@ -29,6 +29,8 @@ public class Material extends BaseEntity {
 
   private String extension;
 
+  private Long size;
+
   private String fileKey;
 
   @ManyToOne(fetch = FetchType.LAZY)
@@ -40,9 +42,10 @@ public class Material extends BaseEntity {
   private User user;
 
   @Builder
-  public Material(String name, String extension, String fileKey, Project project, User user) {
+  public Material(String name, String extension, Long size, String fileKey, Project project, User user) {
     this.name = name;
     this.extension = extension;
+    this.size = size;
     this.fileKey = fileKey;
     this.project = project;
     this.user = user;
@@ -52,6 +55,7 @@ public class Material extends BaseEntity {
     return Material.builder()
             .name(uploadMaterialReq.getName())
             .extension(uploadMaterialReq.getExtension())
+            .size(uploadMaterialReq.getSize())
             .fileKey(uploadMaterialReq.getFileKey())
             .project(project)
             .user(user)
