@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
-public class AwsS3ImageUrlUtil {
+public class AwsS3FileUrlUtil {
 
   public static String bucket;
   public static String region;
@@ -21,7 +21,7 @@ public class AwsS3ImageUrlUtil {
     bucket = value;
   }
 
-  public static String toUrl(String imageKey) {
-    return "https://"+bucket+".s3."+region+".amazonaws.com/"+imageKey;
+  public static String toUrl(String fileKey) {
+    return "https://"+bucket+".s3."+region+".amazonaws.com/"+fileKey;
   }
 }
