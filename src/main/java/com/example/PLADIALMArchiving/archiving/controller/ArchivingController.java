@@ -47,14 +47,13 @@ public class ArchivingController {
   /**
    * 자료를 삭제한다.
    */
-  @DeleteMapping("/projects/{projectId}/materials/{materialId}")
+  @DeleteMapping("/materials/{materialId}")
   public ResponseCustom<?> deleteMaterial(
-          @PathVariable Long projectId,
           @PathVariable Long materialId,
           @Account User user
   )
   {
-    archivingService.deleteMaterial(projectId, materialId, user);
+    archivingService.deleteMaterial(materialId, user);
     return ResponseCustom.OK();
   }
   /**

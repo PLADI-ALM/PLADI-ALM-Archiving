@@ -1,7 +1,11 @@
 package com.example.PLADIALMArchiving.user.entity;
 
+import com.example.PLADIALMArchiving.global.exception.BaseException;
+import com.example.PLADIALMArchiving.global.exception.BaseResponseCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+
+import java.util.Arrays;
 
 @Getter
 @RequiredArgsConstructor
@@ -10,4 +14,11 @@ public enum Role {
   ADMIN("관리자");
 
   private final String value;
+
+  public static Role getRoleByName(String value) {
+    return Arrays.stream(Role.values())
+            .filter(r -> r.getValue().equals(value))
+            // todo: exception 처리 필요
+            .findAny().orElseThrow(() -> new BaseException(BaseResponseCode.ROLE_NOT_FOUND));
+  }
 }

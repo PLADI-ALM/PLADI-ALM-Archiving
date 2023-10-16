@@ -8,6 +8,7 @@ import com.example.PLADIALMArchiving.archiving.repository.MaterialRepository;
 import com.example.PLADIALMArchiving.archiving.repository.ProjectRepository;
 import com.example.PLADIALMArchiving.global.exception.BaseException;
 import com.example.PLADIALMArchiving.global.exception.BaseResponseCode;
+import com.example.PLADIALMArchiving.user.entity.Role;
 import com.example.PLADIALMArchiving.user.entity.User;
 import com.example.PLADIALMArchiving.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -40,11 +41,10 @@ public class ArchivingService {
   }
 
   @Transactional
-  public void deleteMaterial(Long projectId, Long materialId, User user) {
-    projectRepository.findById(projectId).orElseThrow(() -> new BaseException(BaseResponseCode.PROJECT_NOT_FOUND));
+  public void deleteMaterial(Long materialId, User user) {
     Material material = materialRepository.findById(materialId).orElseThrow(() -> new BaseException(BaseResponseCode.MATERIAL_NOT_FOUND));
 
-    if(!user.getUserId().equals(material.getUser().getUserId()))
+    if(user.getRole() != Role.ADMIN || !user.getUserId().equals(material.getUser().getUserId()))
       throw new BaseException(BaseResponseCode.UNAUTHORIZED_USER);
 
     material.delete();
