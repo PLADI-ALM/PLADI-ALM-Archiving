@@ -69,7 +69,14 @@ public class ArchivingController {
     archivingService.deleteMaterial(materialId, user);
     return ResponseCustom.OK();
   }
+
   /**
    * 자료를 다운로드한다.
    */
+  @GetMapping("/materials/{materialsId}")
+  public ResponseCustom<?> downloadMaterial(
+          @PathVariable Long materialsId
+  ) {
+    return ResponseCustom.OK(archivingService.downloadMaterial(materialsId));
+  }
 }

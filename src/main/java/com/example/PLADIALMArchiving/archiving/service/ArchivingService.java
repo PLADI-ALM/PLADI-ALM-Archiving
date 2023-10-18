@@ -3,6 +3,7 @@ package com.example.PLADIALMArchiving.archiving.service;
 import com.example.PLADIALMArchiving.archiving.dto.request.RegisterProjectReq;
 import com.example.PLADIALMArchiving.archiving.dto.request.SearchMaterialReq;
 import com.example.PLADIALMArchiving.archiving.dto.request.UploadMaterialReq;
+import com.example.PLADIALMArchiving.archiving.dto.response.DownloadMaterialRes;
 import com.example.PLADIALMArchiving.archiving.dto.response.SearchMaterialRes;
 import com.example.PLADIALMArchiving.archiving.entity.Category;
 import com.example.PLADIALMArchiving.archiving.entity.Material;
@@ -78,5 +79,10 @@ public class ArchivingService {
     }
 
     return filteredMaterials.map(SearchMaterialRes::toDto);
+  }
+
+  public DownloadMaterialRes downloadMaterial(Long materialsId) {
+    Material material = materialRepository.findById(materialsId).orElseThrow(() -> new BaseException(BaseResponseCode.MATERIAL_NOT_FOUND));
+    return DownloadMaterialRes.toDto(material.getFileKey());
   }
 }
