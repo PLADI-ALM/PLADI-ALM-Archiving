@@ -17,6 +17,7 @@ public enum BaseResponseCode {
 
     // User
     USER_NOT_FOUND("U0001", HttpStatus.NOT_FOUND, "사용자를 찾을 수 없습니다."),
+    ROLE_NOT_FOUND("U0013", HttpStatus.NOT_FOUND, "역할을 찾을 수 없습니다."),
 
     // Token
     NULL_TOKEN("T0001", HttpStatus.UNAUTHORIZED, "토큰 값을 입력해주세요."),
@@ -31,6 +32,8 @@ public enum BaseResponseCode {
     ALREADY_REGISTERED_PROJECT("P0001", HttpStatus.BAD_REQUEST, "이미 등록된 프로젝트입니다."),
     PROJECT_NOT_FOUND("P0002", HttpStatus.NOT_FOUND, "존재하지 않는 프로젝트입니다."),
     CATEGORY_NOT_FOUND("P0003", HttpStatus.NOT_FOUND, "존재하지 않는 카테고리입니다."),
+    MATERIAL_NOT_FOUND("P0004", HttpStatus.NOT_FOUND, "존재하지 않는 자료입니다."),
+    UNAUTHORIZED_USER("P0005", HttpStatus.UNAUTHORIZED, "관리자 계정 또는 자료를 업로드한 유저가 아니므로 자료를 삭제할 수 없습니다."),
     ;
 
     public final String code;

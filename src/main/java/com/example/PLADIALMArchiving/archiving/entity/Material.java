@@ -61,4 +61,8 @@ public class Material extends BaseEntity {
             .user(user)
             .build();
   }
+
+  public void delete() {
+    this.setIsEnable(false);
+  }
 }

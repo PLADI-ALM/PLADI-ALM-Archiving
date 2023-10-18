@@ -8,4 +8,5 @@ import lombok.NoArgsConstructor;
 public class UserReq {
     private Long userId;
     private String name;
+    private String role;
 }

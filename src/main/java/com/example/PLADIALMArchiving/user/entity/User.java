@@ -7,9 +7,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @NoArgsConstructor(access= AccessLevel.PROTECTED)
 @Getter
@@ -20,10 +19,15 @@ public class User extends BaseEntity {
     private Long userId;
     private String name;
 
+    @NotNull
+    @Enumerated(value = EnumType.STRING)
+    private Role role;
+
     @Builder
-    public User(Long userId, String name){
+    public User(Long userId, String name, Role role){
         this.userId = userId;
         this.name = name;
+        this.role = role;
     }
 
     public void modifyProfile(String name) {
@@ -31,6 +35,11 @@ public class User extends BaseEntity {
     }
 
     public static User toEntity(UserReq userReq) {
-        return User.builder().userId(userReq.getUserId()).name(userReq.getName()).build();
+        return User.builder()
+                .userId(userReq.getUserId())
+                .name(userReq.getName())
+                .role(Role.getRoleByName(userReq.getRole()))
+                .build();
     }
+
 }

@@ -60,7 +60,15 @@ public class ArchivingController {
   /**
    * 자료를 삭제한다.
    */
-
+  @DeleteMapping("/materials/{materialId}")
+  public ResponseCustom<?> deleteMaterial(
+          @PathVariable Long materialId,
+          @Account User user
+  )
+  {
+    archivingService.deleteMaterial(materialId, user);
+    return ResponseCustom.OK();
+  }
   /**
    * 자료를 다운로드한다.
    */
