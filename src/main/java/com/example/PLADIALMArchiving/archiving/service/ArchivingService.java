@@ -55,7 +55,7 @@ public class ArchivingService {
     if(user.getRole() != Role.ADMIN || !user.getUserId().equals(material.getUser().getUserId()))
       throw new BaseException(BaseResponseCode.UNAUTHORIZED_USER);
 
-    material.delete();
+    materialRepository.delete(material);
   }
 
   public Page<SearchMaterialRes> searchMaterial(Long projectId, SearchMaterialReq searchMaterialReq, Pageable pageable) {
