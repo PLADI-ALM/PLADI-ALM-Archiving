@@ -29,11 +29,13 @@ public enum BaseResponseCode {
     BLACKLIST_TOKEN("T0007", HttpStatus.FORBIDDEN, "로그아웃 혹은 회원 탈퇴된 토큰입니다."),
 
     // Archiving
-    ALREADY_REGISTERED_PROJECT("P0001", HttpStatus.BAD_REQUEST, "이미 등록된 프로젝트입니다."),
+    ALREADY_REGISTERED_PROJECT("P0001", HttpStatus.CONFLICT, "이미 등록된 프로젝트입니다."),
     PROJECT_NOT_FOUND("P0002", HttpStatus.NOT_FOUND, "존재하지 않는 프로젝트입니다."),
     CATEGORY_NOT_FOUND("P0003", HttpStatus.NOT_FOUND, "존재하지 않는 카테고리입니다."),
     MATERIAL_NOT_FOUND("P0004", HttpStatus.NOT_FOUND, "존재하지 않는 자료입니다."),
     UNAUTHORIZED_USER("P0005", HttpStatus.UNAUTHORIZED, "관리자 계정 또는 자료를 업로드한 유저가 아니므로 자료를 삭제할 수 없습니다."),
+    INVALID_NAME("P0006", HttpStatus.BAD_REQUEST, "올바르지 않은 이름 형식입니다. 다시 입력해주세요. (공백, 특수문자 제외 20자 이내)"),
+    INVALID_UPLOAD_MATERIAL_REQUEST("P0007", HttpStatus.BAD_REQUEST, "부적절한 자료 업로드 요청입니다. 공백을 제외하고 다시 입력해주세요."),
     ;
 
     public final String code;

@@ -21,6 +21,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,9 +37,14 @@ public class ArchivingService {
 
   @Transactional
   public void registerProject(RegisterProjectReq registerProjectReq) {
+    if(!validatePrjNameInput(registerProjectReq.getName())) throw new BaseException(BaseResponseCode.INVALID_NAME);
     boolean present = projectRepository.findByName(registerProjectReq.getName()).isPresent();
     if(present) throw new BaseException(BaseResponseCode.ALREADY_REGISTERED_PROJECT);
     projectRepository.save(Project.toEntity(registerProjectReq.getName()));
+  }
+
+  private boolean validatePrjNameInput(String name) {
+    return name.matches("^[a-zA-Z0-9가-핳]{1,20}$");
   }
 
   @Transactional
