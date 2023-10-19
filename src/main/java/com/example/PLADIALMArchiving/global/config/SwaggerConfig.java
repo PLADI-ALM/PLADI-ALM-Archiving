@@ -28,9 +28,9 @@ import java.util.List;
 
 @Configuration
 public class SwaggerConfig {
-    private static final String API_NAME = "PLADI_SERVER_API";
+    private static final String API_NAME = "PLADI_ARCHIVING_API";
     private static final String API_VERSION = "0.0.1";
-    private static final String API_DESCRIPTION = "PLADI_SERVER_API_명세서";
+    private static final String API_DESCRIPTION = "PLADI_ARCHIVING_명세서";
 
 
     @Bean
