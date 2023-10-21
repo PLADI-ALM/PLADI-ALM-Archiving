@@ -12,4 +12,6 @@ import java.util.List;
 @Repository
 public interface MaterialRepository extends JpaRepository<Material, Long> {
   Page<Material> findByProjectAndExtensionInAndNameContaining(Project project, List<String> extensions, String cond, Pageable pageable);
+
+  Page<Material> findByProject(Project project, Pageable pageable);
 }

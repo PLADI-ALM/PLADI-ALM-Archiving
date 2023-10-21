@@ -77,9 +77,9 @@ public class ArchivingService {
       } else if (category == Category.DOCS) {
         extension = List.of(Constants.EXTENSION.DOCS.split(" "));
       }
-      filteredMaterials = materialRepository.findByProjectAndExtensionInAndNameContaining(project, extension, searchMaterialReq.getCond(), pageable);
+              filteredMaterials = materialRepository.findByProjectAndExtensionInAndNameContaining(project, extension, searchMaterialReq.getCond(), pageable);
     } else {
-      filteredMaterials = materialRepository.findAll(pageable);
+      filteredMaterials = materialRepository.findByProject(project, pageable);
     }
 
     return filteredMaterials.map(SearchMaterialRes::toDto);
@@ -105,5 +105,14 @@ public class ArchivingService {
   public void updateProject(Long projectId, UpdateProjectReq updateProjectReq) {
     Project project = projectRepository.findById(projectId).orElseThrow(() -> new BaseException(BaseResponseCode.PROJECT_NOT_FOUND));
     project.update(updateProjectReq.getName());
+  }
+
+  @Transactional
+  public void deleteProject(Long projectId, User user) {
+    Project project = projectRepository.findById(projectId).orElseThrow(() -> new BaseException(BaseResponseCode.PROJECT_NOT_FOUND));
+    if(user.getRole() != Role.ADMIN) throw new BaseException(BaseResponseCode.UNAUTHORIZED_USER);
+
+    materialRepository.deleteAll(project.getMaterialList());
+    projectRepository.delete(project);
   }
 }
