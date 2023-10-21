@@ -3,6 +3,7 @@ package com.example.PLADIALMArchiving.archiving.controller;
 import com.example.PLADIALMArchiving.archiving.dto.request.RegisterProjectReq;
 import com.example.PLADIALMArchiving.archiving.dto.request.SearchMaterialReq;
 import com.example.PLADIALMArchiving.archiving.dto.request.UploadMaterialReq;
+import com.example.PLADIALMArchiving.archiving.dto.response.DownloadMaterialRes;
 import com.example.PLADIALMArchiving.archiving.dto.response.SearchMaterialRes;
 import com.example.PLADIALMArchiving.archiving.service.ArchivingService;
 import com.example.PLADIALMArchiving.global.exception.BaseException;
@@ -125,7 +126,7 @@ public class ArchivingController {
           @ApiResponse(responseCode = "404", description = "(P0004)존재하지 않는 자료입니다.", content = @Content(schema = @Schema(implementation = ResponseCustom.class))),
   })
   @GetMapping("/materials/{materialId}")
-  public ResponseCustom<?> downloadMaterial(
+  public ResponseCustom<DownloadMaterialRes> downloadMaterial(
           @Parameter(description = "(Long) 자원 Id", example = "15") @PathVariable(name = "materialId") Long materialId
   ) {
     return ResponseCustom.OK(archivingService.downloadMaterial(materialId));
