@@ -183,4 +183,24 @@ public class ArchivingController {
     archivingService.updateProject(projectId, updateProjectReq);
     return ResponseCustom.OK();
   }
+
+  /**
+   * 프로젝트를 삭제한다.
+   */
+  @Operation(summary = "프로젝트 삭제 (김민기)", description = "아카이빙 프로젝트를 삭제한다.")
+  @ApiResponses(value = {
+          @ApiResponse(responseCode = "200", description = "(S0001)요청에 성공했습니다."),
+          @ApiResponse(responseCode = "404", description = "(P0002)존재하지 않는 프로젝트입니다.", content = @Content(schema = @Schema(implementation = ResponseCustom.class)))
+  })
+  @DeleteMapping("/projects/{projectId}")
+  public ResponseCustom<?> deleteProject(
+          @Parameter(description = "(Long) 프로젝트 Id", example = "1")  @PathVariable Long projectId,
+          @Account User user
+
+  )
+  {
+    archivingService.deleteProject(projectId, user);
+    return ResponseCustom.OK();
+  }
+
 }
