@@ -1,9 +1,6 @@
 package com.example.PLADIALMArchiving.archiving.controller;
 
-import com.example.PLADIALMArchiving.archiving.dto.request.RegisterProjectReq;
-import com.example.PLADIALMArchiving.archiving.dto.request.SearchMaterialReq;
-import com.example.PLADIALMArchiving.archiving.dto.request.UpdateMaterialReq;
-import com.example.PLADIALMArchiving.archiving.dto.request.UploadMaterialReq;
+import com.example.PLADIALMArchiving.archiving.dto.request.*;
 import com.example.PLADIALMArchiving.archiving.dto.response.DownloadMaterialRes;
 import com.example.PLADIALMArchiving.archiving.dto.response.SearchMaterialRes;
 import com.example.PLADIALMArchiving.archiving.dto.response.SearchProjectRes;
@@ -167,5 +164,23 @@ public class ArchivingController {
   )
   {
     return ResponseCustom.OK(archivingService.searchProject(pageable));
+  }
+
+  /**
+   * 프로젝트 이름을 변경한다.
+   */
+  @Operation(summary = "프로젝트 이름 변경 (김민기)", description = "아카이빙 프로젝트 이름을 변경한다.")
+  @ApiResponses(value = {
+          @ApiResponse(responseCode = "200", description = "(S0001)요청에 성공했습니다."),
+          @ApiResponse(responseCode = "404", description = "(P0002)존재하지 않는 프로젝트입니다.", content = @Content(schema = @Schema(implementation = ResponseCustom.class)))
+  })
+  @PatchMapping("/projects/{projectId}")
+  public ResponseCustom<?> updateProject(
+          @Parameter(description = "(Long) 프로젝트 Id", example = "1")  @PathVariable Long projectId,
+          @RequestBody @Valid UpdateProjectReq updateProjectReq
+  )
+  {
+    archivingService.updateProject(projectId, updateProjectReq);
+    return ResponseCustom.OK();
   }
 }
