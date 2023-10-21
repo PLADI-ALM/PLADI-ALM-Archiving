@@ -2,6 +2,7 @@ package com.example.PLADIALMArchiving.archiving.controller;
 
 import com.example.PLADIALMArchiving.archiving.dto.request.RegisterProjectReq;
 import com.example.PLADIALMArchiving.archiving.dto.request.SearchMaterialReq;
+import com.example.PLADIALMArchiving.archiving.dto.request.UpdateMaterialReq;
 import com.example.PLADIALMArchiving.archiving.dto.request.UploadMaterialReq;
 import com.example.PLADIALMArchiving.archiving.dto.response.DownloadMaterialRes;
 import com.example.PLADIALMArchiving.archiving.dto.response.SearchMaterialRes;
@@ -130,5 +131,24 @@ public class ArchivingController {
           @Parameter(description = "(Long) 자원 Id", example = "15") @PathVariable(name = "materialId") Long materialId
   ) {
     return ResponseCustom.OK(archivingService.downloadMaterial(materialId));
+  }
+
+  /**
+   * 자료 파일명을 변경한다.
+   */
+  @Operation(summary = "자료 파일명 변경 (김민기)", description = "아카이빙 자료 파일명을 변경한다.")
+  @ApiResponses(value = {
+          @ApiResponse(responseCode = "200", description = "(S0001)요청에 성공했습니다."),
+          @ApiResponse(responseCode = "400", description = "(G0001)잘못된 요청입니다.", content = @Content(schema = @Schema(implementation = ResponseCustom.class))),
+          @ApiResponse(responseCode = "404", description = "(P0004)존재하지 않는 자료입니다.", content = @Content(schema = @Schema(implementation = ResponseCustom.class))),
+  })
+  @PatchMapping("/materials/{materialId}")
+  public ResponseCustom<?> updateMaterial(
+          @Parameter(description = "(Long) 자원 Id", example = "15") @PathVariable(name = "materialId") Long materialId,
+          @RequestBody @Valid UpdateMaterialReq updateMaterialReq
+  )
+  {
+    archivingService.updateMaterial(materialId, updateMaterialReq);
+    return ResponseCustom.OK();
   }
 }
