@@ -160,7 +160,6 @@ public class ArchivingController {
   @Operation(summary = "프로젝트 목록 조회 (김민기)", description = "아카이빙 프로젝트 목록을 조회한다.")
   @ApiResponses(value = {
           @ApiResponse(responseCode = "200", description = "(S0001)요청에 성공했습니다."),
-          @ApiResponse(responseCode = "404", description = "(P0002)존재하지 않는 프로젝트입니다.", content = @Content(schema = @Schema(implementation = ResponseCustom.class)))
   })
   @GetMapping("/projects")
   public ResponseCustom<Page<SearchProjectRes>> searchProject(
