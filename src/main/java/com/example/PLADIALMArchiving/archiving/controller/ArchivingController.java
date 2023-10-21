@@ -6,6 +6,7 @@ import com.example.PLADIALMArchiving.archiving.dto.request.UpdateMaterialReq;
 import com.example.PLADIALMArchiving.archiving.dto.request.UploadMaterialReq;
 import com.example.PLADIALMArchiving.archiving.dto.response.DownloadMaterialRes;
 import com.example.PLADIALMArchiving.archiving.dto.response.SearchMaterialRes;
+import com.example.PLADIALMArchiving.archiving.dto.response.SearchProjectRes;
 import com.example.PLADIALMArchiving.archiving.service.ArchivingService;
 import com.example.PLADIALMArchiving.global.exception.BaseException;
 import com.example.PLADIALMArchiving.global.exception.BaseResponseCode;
@@ -80,6 +81,7 @@ public class ArchivingController {
   /**
    * 자료목록을 조회 및 검색한다.
    */
+  // todo 이름, 게시일 오름차순 내림차순 정렬 구현 필요
   @Operation(summary = "자료목록 조회 및 검색 (김민기)", description = "아카이빙 자료목록을 조회 및 검색한다.")
   @ApiResponses(value = {
           @ApiResponse(responseCode = "200", description = "(S0001)요청에 성공했습니다."),
@@ -150,5 +152,20 @@ public class ArchivingController {
   {
     archivingService.updateMaterial(materialId, updateMaterialReq);
     return ResponseCustom.OK();
+  }
+
+  /**
+   * 프로젝트 목록을 조회한다.
+   */
+  @Operation(summary = "프로젝트 목록 조회 (김민기)", description = "아카이빙 프로젝트 목록을 조회한다.")
+  @ApiResponses(value = {
+          @ApiResponse(responseCode = "200", description = "(S0001)요청에 성공했습니다."),
+  })
+  @GetMapping("/projects")
+  public ResponseCustom<Page<SearchProjectRes>> searchProject(
+          Pageable pageable
+  )
+  {
+    return ResponseCustom.OK(archivingService.searchProject(pageable));
   }
 }

@@ -6,6 +6,7 @@ import com.example.PLADIALMArchiving.archiving.dto.request.UpdateMaterialReq;
 import com.example.PLADIALMArchiving.archiving.dto.request.UploadMaterialReq;
 import com.example.PLADIALMArchiving.archiving.dto.response.DownloadMaterialRes;
 import com.example.PLADIALMArchiving.archiving.dto.response.SearchMaterialRes;
+import com.example.PLADIALMArchiving.archiving.dto.response.SearchProjectRes;
 import com.example.PLADIALMArchiving.archiving.entity.Category;
 import com.example.PLADIALMArchiving.archiving.entity.Material;
 import com.example.PLADIALMArchiving.archiving.entity.Project;
@@ -96,5 +97,10 @@ public class ArchivingService {
   public void updateMaterial(Long materialId, UpdateMaterialReq updateMaterialReq) {
     Material material = materialRepository.findById(materialId).orElseThrow(() -> new BaseException(BaseResponseCode.MATERIAL_NOT_FOUND));
     material.update(updateMaterialReq.getName());
+  }
+
+  public Page<SearchProjectRes> searchProject(Pageable pageable) {
+    Page<Project> all = projectRepository.findAll(pageable);
+    return all.map(SearchProjectRes::toDto);
   }
 }
