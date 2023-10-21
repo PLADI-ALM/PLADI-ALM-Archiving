@@ -42,7 +42,7 @@ public class ArchivingController {
           @ApiResponse(responseCode = "409", description = "(P0001)이미 등록된 프로젝트입니다.", content = @Content(schema = @Schema(implementation = ResponseCustom.class))),
           @ApiResponse(responseCode = "400", description = "(P0006)올바르지 않은 프로젝트 이름입니다. 다시 입력해주세요. (공백, 특수문자 제외 20자 이내)", content = @Content(schema = @Schema(implementation = ResponseCustom.class))),
   })
-  @PostMapping("/projects/register")
+  @PostMapping("/projects")
   public ResponseCustom<?> registerProject(@RequestBody @Valid RegisterProjectReq registerProjectReq)
   {
     archivingService.registerProject(registerProjectReq);
@@ -59,7 +59,7 @@ public class ArchivingController {
           @ApiResponse(responseCode = "403", description = "(G0002)접근권한이 없습니다.", content = @Content(schema = @Schema(implementation = ResponseCustom.class))),
           @ApiResponse(responseCode = "404", description = "(P0002)존재하지 않는 프로젝트입니다.", content = @Content(schema = @Schema(implementation = ResponseCustom.class))),
   })
-  @PostMapping("/projects/{projectId}/upload")
+  @PostMapping("/projects/{projectId}")
   public ResponseCustom<?> uploadMaterial
   (
           @RequestBody @Valid UploadMaterialReq uploadMaterialReq,
@@ -84,7 +84,7 @@ public class ArchivingController {
           @ApiResponse(responseCode = "404", description = "(P0002)존재하지 않는 프로젝트입니다.", content = @Content(schema = @Schema(implementation = ResponseCustom.class))),
           @ApiResponse(responseCode = "404", description = "(P0003)존재하지 않는 카테고리입니다.", content = @Content(schema = @Schema(implementation = ResponseCustom.class))),
   })
-  @PostMapping("/projects/{projectId}")
+  @GetMapping("/projects/{projectId}")
   public ResponseCustom<Page<SearchMaterialRes>> searchMaterial
   (
           @Parameter(description = "(Long) 프로젝트 Id", example = "1") @PathVariable(name = "projectId") Long projectId,

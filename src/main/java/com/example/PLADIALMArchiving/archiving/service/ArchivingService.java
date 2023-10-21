@@ -30,7 +30,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ArchivingService {
 
-  private final UserRepository userRepository;
   private final ProjectRepository projectRepository;
   private final MaterialRepository materialRepository;
 
