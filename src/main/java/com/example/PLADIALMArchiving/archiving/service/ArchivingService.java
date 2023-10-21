@@ -2,6 +2,7 @@ package com.example.PLADIALMArchiving.archiving.service;
 
 import com.example.PLADIALMArchiving.archiving.dto.request.RegisterProjectReq;
 import com.example.PLADIALMArchiving.archiving.dto.request.SearchMaterialReq;
+import com.example.PLADIALMArchiving.archiving.dto.request.UpdateMaterialReq;
 import com.example.PLADIALMArchiving.archiving.dto.request.UploadMaterialReq;
 import com.example.PLADIALMArchiving.archiving.dto.response.DownloadMaterialRes;
 import com.example.PLADIALMArchiving.archiving.dto.response.SearchMaterialRes;
@@ -30,7 +31,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ArchivingService {
 
-  private final UserRepository userRepository;
   private final ProjectRepository projectRepository;
   private final MaterialRepository materialRepository;
 
@@ -90,5 +90,11 @@ public class ArchivingService {
   public DownloadMaterialRes downloadMaterial(Long materialsId) {
     Material material = materialRepository.findById(materialsId).orElseThrow(() -> new BaseException(BaseResponseCode.MATERIAL_NOT_FOUND));
     return DownloadMaterialRes.toDto(material.getFileKey());
+  }
+
+  @Transactional
+  public void updateMaterial(Long materialId, UpdateMaterialReq updateMaterialReq) {
+    Material material = materialRepository.findById(materialId).orElseThrow(() -> new BaseException(BaseResponseCode.MATERIAL_NOT_FOUND));
+    material.update(updateMaterialReq.getName());
   }
 }

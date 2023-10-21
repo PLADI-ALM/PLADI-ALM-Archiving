@@ -61,4 +61,8 @@ public class Material extends BaseEntity {
             .user(user)
             .build();
   }
+
+  public void update(String name) {
+    this.name = name;
+  }
 }
