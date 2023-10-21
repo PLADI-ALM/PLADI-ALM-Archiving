@@ -1,9 +1,6 @@
 package com.example.PLADIALMArchiving.archiving.service;
 
-import com.example.PLADIALMArchiving.archiving.dto.request.RegisterProjectReq;
-import com.example.PLADIALMArchiving.archiving.dto.request.SearchMaterialReq;
-import com.example.PLADIALMArchiving.archiving.dto.request.UpdateMaterialReq;
-import com.example.PLADIALMArchiving.archiving.dto.request.UploadMaterialReq;
+import com.example.PLADIALMArchiving.archiving.dto.request.*;
 import com.example.PLADIALMArchiving.archiving.dto.response.DownloadMaterialRes;
 import com.example.PLADIALMArchiving.archiving.dto.response.SearchMaterialRes;
 import com.example.PLADIALMArchiving.archiving.dto.response.SearchProjectRes;
@@ -102,5 +99,11 @@ public class ArchivingService {
   public Page<SearchProjectRes> searchProject(Pageable pageable) {
     Page<Project> all = projectRepository.findAll(pageable);
     return all.map(SearchProjectRes::toDto);
+  }
+
+  @Transactional
+  public void updateProject(Long projectId, UpdateProjectReq updateProjectReq) {
+    Project project = projectRepository.findById(projectId).orElseThrow(() -> new BaseException(BaseResponseCode.PROJECT_NOT_FOUND));
+    project.update(updateProjectReq.getName());
   }
 }
