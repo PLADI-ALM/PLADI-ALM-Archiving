@@ -190,7 +190,8 @@ public class ArchivingController {
   @Operation(summary = "프로젝트 삭제 (김민기)", description = "아카이빙 프로젝트를 삭제한다.")
   @ApiResponses(value = {
           @ApiResponse(responseCode = "200", description = "(S0001)요청에 성공했습니다."),
-          @ApiResponse(responseCode = "404", description = "(P0002)존재하지 않는 프로젝트입니다.", content = @Content(schema = @Schema(implementation = ResponseCustom.class)))
+          @ApiResponse(responseCode = "404", description = "(P0002)존재하지 않는 프로젝트입니다.", content = @Content(schema = @Schema(implementation = ResponseCustom.class))),
+          @ApiResponse(responseCode = "401", description = "(P0005)관리자 계정이 아니므로 프로젝트를 삭제할 수 없습니다.", content = @Content(schema = @Schema(implementation = ResponseCustom.class))),
   })
   @DeleteMapping("/projects/{projectId}")
   public ResponseCustom<?> deleteProject(
