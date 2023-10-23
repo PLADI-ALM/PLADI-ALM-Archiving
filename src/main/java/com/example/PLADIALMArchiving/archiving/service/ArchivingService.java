@@ -14,7 +14,6 @@ import com.example.PLADIALMArchiving.global.exception.BaseException;
 import com.example.PLADIALMArchiving.global.exception.BaseResponseCode;
 import com.example.PLADIALMArchiving.user.entity.Role;
 import com.example.PLADIALMArchiving.user.entity.User;
-import com.example.PLADIALMArchiving.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -35,9 +34,9 @@ public class ArchivingService {
 
   @Transactional
   public void registerProject(RegisterProjectReq registerProjectReq) {
-    if(!validatePrjNameInput(registerProjectReq.getName())) throw new BaseException(BaseResponseCode.INVALID_NAME);
+    if (!validatePrjNameInput(registerProjectReq.getName())) throw new BaseException(BaseResponseCode.INVALID_NAME);
     boolean present = projectRepository.findByName(registerProjectReq.getName()).isPresent();
-    if(present) throw new BaseException(BaseResponseCode.ALREADY_REGISTERED_PROJECT);
+    if (present) throw new BaseException(BaseResponseCode.ALREADY_REGISTERED_PROJECT);
     projectRepository.save(Project.toEntity(registerProjectReq.getName()));
   }
 
@@ -56,7 +55,7 @@ public class ArchivingService {
   public void deleteMaterial(Long materialId, User user) {
     Material material = materialRepository.findById(materialId).orElseThrow(() -> new BaseException(BaseResponseCode.MATERIAL_NOT_FOUND));
 
-    if(user.getRole() != Role.ADMIN || !user.getUserId().equals(material.getUser().getUserId()))
+    if (user.getRole() != Role.ADMIN || !user.getUserId().equals(material.getUser().getUserId()))
       throw new BaseException(BaseResponseCode.UNAUTHORIZED_USER);
 
     materialRepository.delete(material);
@@ -77,7 +76,7 @@ public class ArchivingService {
       } else if (category == Category.DOCS) {
         extension = List.of(Constants.EXTENSION.DOCS.split(" "));
       }
-              filteredMaterials = materialRepository.findByProjectAndExtensionInAndNameContaining(project, extension, searchMaterialReq.getCond(), pageable);
+      filteredMaterials = materialRepository.findByProjectAndExtensionInAndNameContaining(project, extension, searchMaterialReq.getCond(), pageable);
     } else {
       filteredMaterials = materialRepository.findByProject(project, pageable);
     }
@@ -110,7 +109,7 @@ public class ArchivingService {
   @Transactional
   public void deleteProject(Long projectId, User user) {
     Project project = projectRepository.findById(projectId).orElseThrow(() -> new BaseException(BaseResponseCode.PROJECT_NOT_FOUND));
-    if(user.getRole() != Role.ADMIN) throw new BaseException(BaseResponseCode.UNAUTHORIZED_USER);
+    if (user.getRole() != Role.ADMIN) throw new BaseException(BaseResponseCode.UNAUTHORIZED_USER);
 
     materialRepository.deleteAll(project.getMaterialList());
     projectRepository.delete(project);
