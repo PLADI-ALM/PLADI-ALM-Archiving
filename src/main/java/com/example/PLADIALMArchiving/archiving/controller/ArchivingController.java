@@ -43,7 +43,7 @@ public class ArchivingController {
           @ApiResponse(responseCode = "400", description = "(P0006)올바르지 않은 프로젝트 이름입니다. 다시 입력해주세요. (공백, 특수문자 제외 20자 이내)", content = @Content(schema = @Schema(implementation = ResponseCustom.class))),
   })
   @PostMapping("/projects")
-  public ResponseCustom<?> registerProject(@RequestBody @Valid RegisterProjectReq registerProjectReq)
+  public ResponseCustom registerProject(@RequestBody @Valid RegisterProjectReq registerProjectReq)
   {
     archivingService.registerProject(registerProjectReq);
     return ResponseCustom.OK();
@@ -60,7 +60,7 @@ public class ArchivingController {
           @ApiResponse(responseCode = "404", description = "(P0002)존재하지 않는 프로젝트입니다.", content = @Content(schema = @Schema(implementation = ResponseCustom.class))),
   })
   @PostMapping("/projects/{projectId}")
-  public ResponseCustom<?> uploadMaterial
+  public ResponseCustom uploadMaterial
   (
           @RequestBody @Valid UploadMaterialReq uploadMaterialReq,
           @Parameter(description = "(Long) 프로젝트 Id", example = "1") @PathVariable(name = "projectId") Long projectId,
@@ -107,8 +107,8 @@ public class ArchivingController {
           @ApiResponse(responseCode = "401", description = "(P0005)관리자 계정 또는 자료를 업로드한 유저가 아니므로 자료를 삭제할 수 없습니다.", content = @Content(schema = @Schema(implementation = ResponseCustom.class))),
   })
   @DeleteMapping("/materials/{materialId}")
-  public ResponseCustom<?> deleteMaterial(
-          @Parameter(description = "(Long) 자원 Id", example = "15") @PathVariable(name = "materialId") Long materialId,
+  public ResponseCustom deleteMaterial(
+          @Parameter(description = "(Long) 자료 Id", example = "15") @PathVariable(name = "materialId") Long materialId,
           @Account User user
   )
   {
@@ -127,7 +127,7 @@ public class ArchivingController {
   })
   @GetMapping("/materials/{materialId}")
   public ResponseCustom<DownloadMaterialRes> downloadMaterial(
-          @Parameter(description = "(Long) 자원 Id", example = "15") @PathVariable(name = "materialId") Long materialId
+          @Parameter(description = "(Long) 자료 Id", example = "15") @PathVariable(name = "materialId") Long materialId
   ) {
     return ResponseCustom.OK(archivingService.downloadMaterial(materialId));
   }
@@ -142,8 +142,8 @@ public class ArchivingController {
           @ApiResponse(responseCode = "404", description = "(P0004)존재하지 않는 자료입니다.", content = @Content(schema = @Schema(implementation = ResponseCustom.class))),
   })
   @PatchMapping("/materials/{materialId}")
-  public ResponseCustom<?> updateMaterial(
-          @Parameter(description = "(Long) 자원 Id", example = "15") @PathVariable(name = "materialId") Long materialId,
+  public ResponseCustom updateMaterial(
+          @Parameter(description = "(Long) 자료 Id", example = "15") @PathVariable(name = "materialId") Long materialId,
           @RequestBody @Valid UpdateMaterialReq updateMaterialReq
   )
   {
@@ -175,7 +175,7 @@ public class ArchivingController {
           @ApiResponse(responseCode = "404", description = "(P0002)존재하지 않는 프로젝트입니다.", content = @Content(schema = @Schema(implementation = ResponseCustom.class)))
   })
   @PatchMapping("/projects/{projectId}")
-  public ResponseCustom<?> updateProject(
+  public ResponseCustom updateProject(
           @Parameter(description = "(Long) 프로젝트 Id", example = "1")  @PathVariable Long projectId,
           @RequestBody @Valid UpdateProjectReq updateProjectReq
   )
@@ -194,7 +194,7 @@ public class ArchivingController {
           @ApiResponse(responseCode = "401", description = "(P0005)관리자 계정이 아니므로 프로젝트를 삭제할 수 없습니다.", content = @Content(schema = @Schema(implementation = ResponseCustom.class))),
   })
   @DeleteMapping("/projects/{projectId}")
-  public ResponseCustom<?> deleteProject(
+  public ResponseCustom deleteProject(
           @Parameter(description = "(Long) 프로젝트 Id", example = "1")  @PathVariable Long projectId,
           @Account User user
 
