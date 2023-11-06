@@ -6,6 +6,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -13,6 +14,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor(access= AccessLevel.PROTECTED)
 @Getter
 @Entity
+@SQLDelete(sql = "UPDATE user SET is_enable = false, update_at = current_timestamp WHERE user_id = ?")
 public class User extends BaseEntity {
     @Id
     @Column(nullable = false)
@@ -30,15 +32,16 @@ public class User extends BaseEntity {
         this.role = role;
     }
 
-    public void modifyProfile(String name) {
+    public void changeProfile(String name, Role role) {
         this.name = name;
+        this.role = role;
     }
 
     public static User toEntity(UserReq userReq) {
         return User.builder()
                 .userId(userReq.getUserId())
                 .name(userReq.getName())
-                .role(Role.getRoleByName(userReq.getRole()))
+                .role(userReq.getRole())
                 .build();
     }
 
