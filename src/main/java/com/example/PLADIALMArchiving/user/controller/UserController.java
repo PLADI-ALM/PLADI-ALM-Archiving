@@ -18,7 +18,7 @@ public class UserController {
         return ResponseCustom.OK();
     }
 
-    @PatchMapping("")
+    @GetMapping("")
     public ResponseCustom<?> changeUserProfile(@RequestBody UserReq userReq){
         this.userService.changeUserProfile(userReq);
         return ResponseCustom.OK();
