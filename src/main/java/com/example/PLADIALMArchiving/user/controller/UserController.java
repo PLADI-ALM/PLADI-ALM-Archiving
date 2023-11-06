@@ -18,7 +18,7 @@ public class UserController {
         return ResponseCustom.OK();
     }
 
-    @GetMapping("")
+    @PostMapping("change")
     public ResponseCustom<?> changeUserProfile(@RequestBody UserReq userReq){
         this.userService.changeUserProfile(userReq);
         return ResponseCustom.OK();
